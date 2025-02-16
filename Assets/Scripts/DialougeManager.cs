@@ -13,7 +13,7 @@ public class DialougeManager : MonoBehaviour
     
     private Queue<string> sentences;
     
-    // Start is called before the first frame update
+    
     void Awake()
     {
         sentences = new Queue<string>();

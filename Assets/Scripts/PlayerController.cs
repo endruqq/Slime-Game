@@ -39,14 +39,14 @@ public class PlayerController : MonoBehaviour
     {
        
         numberOfMovesPlayerCanDo = 17f;
-        rb = GetComponent<Rigidbody2D>();  // Get the Rigidbody2D attached to the player
-        rb.isKinematic = true; // Set it to Kinematic to manually control movement
+        rb = GetComponent<Rigidbody2D>();  
+        rb.isKinematic = true; 
         numberOfMovesPushableObjectHas = 5;
         
         GameObject pushableObject = GameObject.FindGameObjectWithTag("Pushable");
         if (pushableObject != null)
         {
-            groundScript = GameObject.FindGameObjectWithTag("Pushable").GetComponent<groundScript>();// object reference not set// repair it
+            groundScript = GameObject.FindGameObjectWithTag("Pushable").GetComponent<groundScript>();
         }
         
         
@@ -102,14 +102,14 @@ public class PlayerController : MonoBehaviour
     bool CanMove(Vector2 direction)
     {
         Debug.DrawRay(rb.position, direction * raycastDistance, Color.red, 0.5f);
-        // Perform a raycast in the specified direction from the player's position
+        
         RaycastHit2D hit = Physics2D.Raycast(rb.position, direction, raycastDistance, obstacleLayer);
 
-        // Check if the raycast hit anything
+       
         if (hit.collider != null)
         {
             Debug.Log("Blocked by: " + hit.collider.gameObject.name);
-            return false;  // There's an obstacle, so the player can't move in this direction
+            return false;  
         }
 
         RaycastHit2D checkForBox = Physics2D.Raycast(rb.position, direction, raycastDistance, boxLayer);
@@ -128,11 +128,11 @@ public class PlayerController : MonoBehaviour
             else
             {
                 Debug.Log("Blocked by: " + hit.collider.gameObject.name);
-                return false;  // There's an obstacle, so the player can't move
+                return false;  
             }
         }
 
-        return true;  // No obstacle, the player can move
+        return true;  
     }
 
     void PushObject(GameObject obj, Vector2 direction,groundScript boxScript )
@@ -154,18 +154,18 @@ public class PlayerController : MonoBehaviour
 
         float elapsedTime = 0;
 
-        origPos = rb.position;  // Use Rigidbody2D position instead of transform.position
+        origPos = rb.position;  
         targetPosistion = origPos + direction;
 
         while (elapsedTime < timeToMove)
         {
             Vector3 newPos = Vector3.Lerp(origPos, targetPosistion, (elapsedTime / timeToMove));
-            rb.MovePosition(newPos);  // Move using Rigidbody2D to ensure proper collision detection
+            rb.MovePosition(newPos);  
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        rb.MovePosition(targetPosistion);  // Ensure the final position is set correctly
+        rb.MovePosition(targetPosistion);  
         isMoving = false;
     }
 
@@ -178,9 +178,9 @@ public class PlayerController : MonoBehaviour
        
 
         Vector3 colliderPositinOffSet = new Vector3(0.28f, 0.30f, 0);
-        // Optionally replace with BoxCollider to block the area after the square is destroyed
+        
         GameObject newCollider = Instantiate(boxColliderPrefab, collision.transform.position + colliderPositinOffSet, Quaternion.identity);
-        newCollider.GetComponent<BoxCollider2D>().isTrigger = false;  // Ensure the new collider is not a trigger
+        newCollider.GetComponent<BoxCollider2D>().isTrigger = false;  
         }
     }
 }

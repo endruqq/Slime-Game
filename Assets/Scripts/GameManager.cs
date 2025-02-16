@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] public GameObject _startingGameTransition;
     [SerializeField] public GameObject _endingGameTransition;
-    // Start is called before the first frame update
+    
     void Start()
     {
         _startingGameTransition.SetActive(true);
